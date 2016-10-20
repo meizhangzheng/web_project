@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>原型</title>
+		<script type="text/javascript">
+			//构造函数式：每new 一次，都会重新创建一个sayName()函数  引起效率问题
+			function Person(name,age,sex) {
+				this.name = name;
+				this.age = age;
+				this.sex = sex;
+//				this.sayName = function() {
+//					return this.name;
+//				}
+				this.sayName = sayName;//这种方式只会定义一次 
+			}
+			
+			var p11 = new Person('zhangs',22,'男');
+			var p12 = new Person('lisi',22,'女');
+			console.log(p11.sayName == p12.sayName);//false
+			
+			function sayName() {
+				return this.name;
+			}
+			console.log(p11.sayName == p12.sayName);//true
+			
+			/**
+			 * prototype  创建每一个函数时都有一个prototype属性，
+			 * 这个属性其实是一个指针
+			 * 而这个指针总指向一个对象
+			 * 用于将特定的属性和方法包含在内，起到所有实例共享的作用
+			 * 因而就屏蔽了构造函数所引起的重复创建 引起的效率问题
+			 */
+			function Person() {
+				
+			}
+			var obj = Person.prototype;
+			obj.name = 'zhangs';
+			obj.sayName = function(){
+				return this.name;
+			}
+			console.log(obj.constructor);
+			console.log(typeof obj);
+			
+			
+			var p41 = new Person();
+			var p42 = new Person();
+			console.log(p41.sayName == p42.sayName);//true
+			
+			console.log(obj.isPrototypeOf(p41));//true;
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>引用类型</title>
+		<script type="text/javascript">
+//			js中的数组相当于java中的map,长度可修改,类型任意
+
+			var arr1 = new Array(); //不推荐
+			var arr2 = [1,3,3,true,'abc',new Date()];
+			console.log(arr2);//隐式调用arr2.toString()方法
+			/*
+			 * push() 从尾部插入一个元素 返回新数组的长度
+			 * pop()  从尾部移除一个元素  返回移除的最后一个元素的值
+			* */
+			var arr = [2,2,3];
+			var resultArr = arr.push(1,2,3,true);
+			console.log(arr+resultArr);
+			
+			
+			var obj = arr.pop();
+			console.log(obj);
+			
+			/** 
+			 * shift() 从头部移除一个元素  返回移除的元素
+			 * unshift() 从头部插入多个元素，返回新数组的长度
+			 */
+			var obj2 = arr.shift();
+			console.log(obj2+"，arr："+arr); //"2，arr：2,3,1,2,3"
+			
+			var len = arr.unshift('aa','bb');
+			console.log(len+"，arr："+arr); //"7，arr：aa,bb,2,3,1,2,3"
+			
+			/**
+			 * 截取方法
+			 * splice()   操作数组本身
+			 * slice() 不操作数组本身
+			 */
+			/**
+			 * splice() 第一个参数表示截取的位置
+			 * 			第二个参数表示截取的长度
+			 * 			第三个参数以后的值表示在截取的位置追加的新元素
+			 * 返回被截取的元素
+			 */
+			var arrSplice = [1,2,3,4,5];
+			var sss = arrSplice.splice(1,2,7,8,9)
+			console.log("sss："+sss+"，arrSplice:"+arrSplice) ;//"sss：2,3，arrSplice:1,7,8,9,4,5"
+			
+			/**
+			 * slice()  左闭右开  从第几位截取到第几位
+			 * 返回截取的内容
+			 */
+			var arr_slice = [1,2,3,4,5];
+			var arr_sss = arr_slice.slice(2,3);
+			console.log("arr_sss："+arr_sss+"，arr_slice:"+arr_slice) ;//"arr_sss：3，arr_slice:1,2,3,4,5"
+			
+			/**
+			 * 操作数组  不操作数组本身
+			 * concat() 返回合并的结果
+			 * join() 在每个元素中间加入内容
+			 */
+			var concat_arr = [1,2,3];
+			var concat_arr2 = [4,6,7];
+			var concat_arr3 = concat_arr.concat(concat_arr2);
+			console.log("concat_arr3:"+concat_arr3+",concat_arr:"+concat_arr);
+			
+			var join_arr = [1,3,5];
+			var join_arr2 = join_arr.join('-');
+			console.log("join_arr2:"+join_arr2+",join_arr:"+join_arr);
+			
+			/**
+			 * 对数组本身进行操作
+			 * sort()  正序排序 是按照字符串比较的
+			 * reverse() 倒序排序  按照位置倒序（而不是大小）
+			 */
+			var arr_sort = [1,10,4,2,6,3];
+			arr_sort.sort();
+			console.log(arr_sort);//"1,10,2,3,4,6"
+			
+			console.log(arr_sort.reverse());//"1,10,2,3,4,6"
+			
+			
+			function compare(value1,value2) {
+				if(value1<value2){
+					return -1;
+				} else if(value1>value2){
+					return 1;
+				} else {
+					return 0;
+				}
+			}
+//			console.log(arr_sort.sort(compare));
+			console.log(
+			arr_sort.sort(function(value1,value2){
+				if(value1<value2){
+					return -1;
+				} else if(value1>value2){
+					return 1;
+				} else {
+					return 0;
+				}
+			}));
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

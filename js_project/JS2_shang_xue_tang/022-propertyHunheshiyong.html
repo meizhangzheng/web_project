@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>构造函数和原型对象混合使用</title>
+		<script type="text/javascript">
+			/**
+			 * 原型的概念：原型对象的所有属性和方法  被所有构造函数实例化出来的实例对象所共享
+			 * 原型里的属性和方法，正因为被所有的对象所共享，若修改了，则所有的修改了
+			 */
+			function Person(){
+				
+			}
+			Person.prototype = {
+				constructor:Person,
+				name:'张三',
+				friends:['王五','李四']
+			};
+			var p1 = new Person();
+			var p2 = new Person();
+			p1.friends.push('p1的新朋友');
+			console.log(p1.friends);
+			console.log(p2.friends);//p1,p2的friends属性都被修改了
+			
+			
+			function PersonNew(name,age,sex,friends) {
+				this.name = name;
+				this.age = age;
+				this.sex = sex;
+				this.friends = friends;
+			}
+			PersonNew.prototype = {
+				constructor:PersonNew,
+				sayName:function(){
+					return this.name;
+				}
+			}
+			
+			var p21 = new PersonNew('zhangs',20,'女',['aa','bb']);
+			var p22 = new PersonNew('zhangs2',19,'nv',['cc','dd']);
+			console.log(p21.friends);
+			console.log(p22.friends);
+			
+			/**
+			 * 动态原型模式：（让所有的代码，都封装在一起）
+			 * 组合使用原型和构造函数式
+			 */
+			function  Person3(name,age,sex) {
+				this.name = name;
+				this.age = age;
+				this.sex = sex;
+				//动态原型方法
+				if(typeof this.sayName !='function'){
+					Person3.prototype.sayName = function(){
+						return this.name;
+					}
+				}
+			}
+			/**
+			 * 稳妥构造函数式：durable object(稳妥对象) 非常安全的环境中
+			 * 1，没有公用属性  2，不能使用this
+			 * 内部所有的变量都是局部变量，只能通过提供的方法来访问内部变量的值
+			 */
+			function Person4(name,sex,age){
+				//创建一个要返回的对象
+				var obj ={};
+				var name = name;
+				var job = '老师';
+				obj.sayJob = function(){
+					return job;
+				}
+				return obj;
+			}
+			var p4 = new Person4('p4');
+			console.log(p4.sayJob());
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>点击事件</title>
+	<style type="text/css">
+		.contextmenuDiv {
+			width:100px;
+			height: 100px;
+			background: #ff22ff;
+		}
+	</style>
+</head>
+<body oncontextmenu="console.log('你小心点儿啦');return false;"  
+		onunload="alert('goodbye')" onbeforeunload="event.returnValue='你小心点儿！'">
+	<div class="contextmenuDiv">
+		
+	</div>
+	<div oncontextmenu="return test()">阻止默认行为 方法1</div>
+	<div oncontextmenu="test2(event)">阻止默认行为  方法二</div>
+	<script>
+		/**
+		 * @return {fasle}
+		 * 1、返回false  阻止默认行为
+		 * 2、window.event.returnValue = false 可以达到同样的效果
+		 */
+		function test(){
+			console.log('第一种方式阻止默认行为'); 
+			return false;
+		}
+
+		function test2(event){
+			console.log('第二种方式阻止默认行为'); 
+			if(event){
+				event.preventDefault();//FF
+			} else {
+				window.event.returnValue = false;
+			}
+		}
+	</script>	
+
+	<div id="one" onmouseover="show(this, 'red')" onmouseout="show(this, 'blue')" onclick="show(this, 'yellow')" ondblclick="show(this, 'green')">wwwwwwwwwwwww</div>
+
+		<script>
+			
+			function show(obj, col) {
+				obj.style.backgroundColor=col;	
+			}
+
+		</script>	
+	<script type="text/javascript">
+		/**
+		 * 阻止事件冒泡
+		 */
+		function stopBubble(e) {
+			if (window.event) {//IE
+			  	e.cancelBubble=true;
+			} else { //FF
+			  	e.stopPropagation();
+			}
+		}
+	</script>
+	
+</body>
+</html>

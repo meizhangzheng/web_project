@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>js定义接口第二种方式:属性检测的方式</title>
+		<script type="text/javascript">
+		/**
+		 * 定义接口的三种方式：
+		 * 一：注解描述的方式
+		 * 二：属性检测的方式
+		 * 三：鸭式辫型
+		 */
+			/**
+			 * 第二种：属性检测的方式
+			 * 缺点：只检测了接口，没有检测接口里的方法到底实现了没有
+			 * 
+			 */
+			/**
+			 * interface Composite(){
+			 * 	function add(obj);
+			 * 	function remove(obj);
+			 * 	function update(obj);
+			 * }
+			 * 
+			 * interface FormItem{
+			 * 	function select(obj);
+			 * }
+			 * 
+			 */
+			//CompositeImpl2 implements Composite,FormItem
+			var CompositeImpl2 = function(){
+				//显示的在类的内部  接收所实现的接口
+				//在类的内部定义一个数组（名字必须固定）  定死的规范问题
+				this.implementsInterface = ['Composite','FormItem'];
+			}
+			CompositeImpl2.prototype.remove = function(obj){
+				//do something
+			}
+			CompositeImpl2.prototype.update = function(obj){
+				//do something
+			}
+			CompositeImpl2.prototype.add = function(obj){
+				console.log('add...');
+				//do something
+			}
+			CompositeImpl2.prototype.select = function(obj){
+				//do something
+			}
+			
+			//再定义一个函数来检查接口方法的实现,方便解耦
+			function CheckCompositeImpl2(instance){
+				//判断当前对象是否实现了所有的接口
+				if(!IsImplements(instance,'Composite','FormItem')){
+					throw new Error('objcet does not implement a required interface!');
+				}
+			}
+			/**
+			 * 公用的具体的检测方法
+			 * 判断实例对象有没有实现相关的接口
+			 */
+			function IsImplements(obj){
+				//arguments对象 获得函数的实际参数
+				for(var i=1,j=arguments.length;i<j;i++) {
+					//每一个接口的名字
+					var interfaceName = arguments[i];
+					var interfaceFound = false;
+					for(var m = 0,n = obj.implementsInterface.length;m<n;m++) {
+						if(obj.implementsInterface[m] == interfaceName){
+							interfaceFound = true;
+							break;
+						}
+					}
+					if(!interfaceFound) {
+						return false;
+					}
+				}
+				return true;
+			}
+			
+			
+			var c1 = new CompositeImpl2();
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

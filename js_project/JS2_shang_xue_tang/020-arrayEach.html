@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>模拟array 的each 方法</title>
+		<script type="text/javascript">
+			/**
+			 * forEach()方法循环遍历数组的每一项，（只适合遍历一维数组）
+			 */
+			var arr = [1,2,4,[1,2,[1,23,4]]];
+			arr.forEach(function(item,index) {
+				console.log(item);
+			});
+			
+			/**
+			 * 模拟each方法
+			 * 能够遍历多维数组
+			 */
+			
+			var arr2 = [1,2,4,[1,2,[1,23,4]]];
+			Array.prototype.each = function(fn){
+				try{
+					this.i ||(this.i=0);//如果不存在，则定义i=0并执行这条语句
+					if(this.length>0 && fn.constructor===Function){
+						while(this.i<this.length){
+							var e = this[this.i];
+							if(e.constructor === Array){
+								e.each(fn);
+							} else {
+								fn.call(e,e);
+							}
+							this.i++;
+						}
+					}
+					this.i = null;
+				}catch(e){
+					//TODO handle the exception
+				}
+				return this;
+			}
+			
+			function  test(name){
+				console.log("测试call方法:"+name);
+			}
+			console.log(test.constructor===Function); 
+			console.log(typeof test) //function
+			
+			
+			function Person(name,age,sex) {
+				this.name = name;
+				this.age = age;
+				this.sex = sex;
+				this.sayName = function(){
+					return this.name;
+				}
+			}
+			var p = new Person('张三',20,'女');
+			test.call(p,p.name);
+			test.apply(p,[p.sex]);
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>函数的参数</title>
+		<script type="text/javascript">
+			/**
+			 * js中得到函数的参数个数：函数名.length
+			 */
+			function test(a,b,c,d) {
+				console.log(a+b);
+				console.log("形参个数："+test.length);//函数的形参 参数个数
+				//函数的实际参数  内部是用的一个数组去接收函数的实际参数  arguments对象（只能在函数的内部使用）
+				console.log("实参个数："+arguments.length);
+				
+				if(test.length==arguments.length){
+					console.log(a+b);
+				} else {
+					console.log('您传入的参数个数不正确！')
+				}
+				
+				/**
+				 * arguments 对象经常用来做递归操作
+				 * arguments.callee  指函数本身
+				 */
+				if(arguments.callee.length==arguments.length){//arguments.callee.length  相当于 test.length
+					console.log(a+b);
+				} else {
+					console.log('您传入的参数个数不正确！')
+				}
+				
+				/**
+				 * argunments 递归
+				 */
+				function fact(num) {
+					if(num<=1) return 1;
+					else return num*arguments.callee(num-1);
+				}
+				console.log(fact(5));
+				
+			}
+			test();//NaN
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

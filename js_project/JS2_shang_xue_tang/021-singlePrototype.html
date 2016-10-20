@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>简单原型</title> 
+		<script type="text/javascript">
+		/**
+		 * 简单原型 （必须加上原型对象的构造器）
+		 * 简单原型时，必须先把原型对象设置好，再实例化
+		 * 简单原型的使用顺序，实例对象必须在原型对象之后
+		 */
+			function Person() {}
+			Person.prototype = { //此时将原型构造器指向了Object  原先是Person
+//				constructor:Person,//必须得有表示原型对象的构造器（但在这里constructor能被枚举）
+				name:'张三',
+				age:'20',
+				sex:'女',
+				sayName:function(){
+					return this.name;
+				}
+			}
+			var p = new Person();
+			console.log(p.sayName());
+			
+			/**
+			 * ECMA5中给原型对象重新设置构造器的方法(FF4+,IE8+)
+			 * Object.defineProperty(vari1,vari2,vari3); 
+			 * 参数一：对象
+			 * 参数二：设置的属性
+			 * 参数三：option配置项
+			 * 
+			 */
+			Object.defineProperty(Person.prototype,'constructer',{
+				enumerable:false,
+				value:Person
+			});
+			for(var attr in p) {
+				console.log(attr);//通过上面的Object.defineProperty(vari1,vari2,vari3)方法加的constructor 可以设置为不可枚举
+			}
+			
+			/**
+			 * 原型的动态属性
+			 */
+			function Person2() {}
+			var p2 = new Person2();
+//			console.log(p2.sayName());//此时会报错  （简单原型的顺序问题）
+			Person.prototype = {
+//				construcor:Person,//必须得有表示原型对象的构造器（但在这里constructor能被枚举）
+				name:'张三',
+				age:'20',
+				sex:'女',
+				sayName:function(){
+					return this.name;
+				}
+			}
+			
+			function Person3() {}
+			var p3 = new Person3();
+//			p3.sayName();//放这里也会报错
+			Person3.prototype.sayName = function(){
+				console.log('原型对象的动态属性！');
+			}
+			p3.sayName();
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

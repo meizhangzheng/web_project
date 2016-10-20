@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>用js 模拟java中的map</title>
+		<script type="text/javascript">
+			function Map(){
+				var obj = {};
+				this.put = function(key,value){
+					obj[key] = value;
+				}
+				
+				this.size = function(){
+					var count = 0;
+					for(var key in obj){
+						count ++;
+					}
+					return count;
+				}
+				
+				this.get = function(key){
+					if(obj[key]||obj[key]===0||obj[key]===false){
+						return obj[key];
+					} else {
+						return null;
+					}
+				}
+				
+				this.remove = function(key){
+					if(obj[key]||obj[key]===0||obj[key]===false){
+						delete obj[key];
+					} 
+				}
+				
+				this.eachMap = function(fn){
+					for(var key in obj) {
+						fn(key,obj[key]);
+					}
+				}
+				
+				
+			}
+			
+			var m = new Map();
+			m.put('01',0);
+			m.put('02',false);
+			m.put('03',1);
+			m.put('04','aaa');
+			m.remove('04');
+			m.eachMap(function(key,value){
+				console.log(key+":"+value);
+			})
+//			console.log(m.get('04'));
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

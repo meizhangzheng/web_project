@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>原型继承 和类继承（借用构造函数式的模板）</title>
+		<script type="text/javascript">
+			/**
+			 * 第一种：原型继承
+			 * 原型继承的特点：既继承了父类的模板，又继承了 父类的原型对象
+			 * 缺点：
+			 */
+			//父类
+			function Person(name,age) {
+				this.name = name;
+				this.age = age;
+			}
+			//父类的原型对象属性
+			Person.prototype.id = '0101';
+			//子类
+			function Boy(sex) {
+				this.sex = sex;
+				this.id = '0102';
+			}
+			//实现继承
+			Boy.prototype = new Person('父类继承',20);
+			
+			var b = new Boy('男');
+			console.log(b.id);
+			
+			
+			/**
+			 * 第二种继承方式：类继承（call  apply方法）
+			 * 特点：只继承模板，不继承原型对象（借用构造函数的方式继承）
+			 * 缺点：但是没有继承父类的原型对象 用父类.prototyp.属性  的属性就不能读取了
+			 */
+			//父类
+			function Person2(name,age) {
+				this.name = name;
+				this.age = age;
+			}
+			//父类的原型对象属性
+			Person2.prototype.id = '0101';
+			//子类
+			function Boy2(name,age,sex) {
+				Person2.call(this,name,age);//借用构造函数式继承构造函数模板
+				this.sex = sex;
+			}
+			var b2 = new Boy2('父类继承(借用构造函数式)',20,'男');
+			console.log(b2.name);
+			console.log(b2.id);
+			
+			/**
+			 * 第三种：混合模式继承：构造函数式+原型继承
+			 */
+			//父类
+			function Person3(name,age) {
+				this.name = name;
+				this.age = age;
+				this.sayName = function(){
+					return this.name;
+				}
+			}
+			//父类的原型对象属性
+			Person3.prototype.id = '0101';
+			//子类
+			function Boy3(name,age,sex) {
+				/**
+				 * 第一步：借用构造函数式继承构造函数模板
+				 * call  绑定父类的构造函数模板，借用构造函数 只复制了父类的模板
+				 */
+				Person3.call(this,name,age);
+				this.sex = sex;
+			}
+			/**
+			 * 第二步：原型继承  此时只剩下  父类的实例和父类的原型对象的关联关系
+			 * 原型继承：既继承了父类的模板，又继承了父类的原型
+			 * 不传参数表面上屏蔽了 父类的构造函数模板，但是还是继承了的
+			 */
+			Boy3.prototype = new Person3();
+			var b3 = new Boy3('父类继承(借用构造函数式)',20,'男');
+			console.log(b3.name);
+			console.log(b3.id);
+			console.log(b3.sayName());
+			
+			/**
+			 * 混合模式继承：
+			 * call继承了构造函数模板
+			 * 然后用原型继承  继承了构造函数模板  和 原型对象
+			 * 缺点：其实是继承了2次父类的构造函数模板 继承了1次父类的原型对象
+			 */
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

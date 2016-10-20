@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>闭包</title>
+		<script type="text/javascript">
+			var name = 'xiao a';
+			var obj = {
+				name:'xiao B',
+				getName:function(){
+					return function(){
+						return this.name;
+					}
+				},
+				getName2:function(){
+					//this 总是指向调用者
+					var o = this;
+					return function(){
+						return o.name;
+					}
+				}
+			};
+			console.log(obj.getName()());//xiao a
+			console.log(obj.getName2()());
+			/**
+			 * 闭包：一个函数 可以访问另外一个函数作用域里的变量  
+			 * 闭包具有封闭性：private  保护变量的作用
+			 * 
+			 */
+			function f(x) {
+				var temp = x;//局部变量   执行f(50)时标记为未被使用
+				return function(x){//又一个function  执行域
+					temp += x;   //temp 又被使用了，标记为被使用，因此不会被回收
+					return temp;
+				}
+			}
+			var a = f(50);//返回一个函数体
+			console.log(a(2));
+			console.log(a(3));
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
