@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript">
+			/**
+			 * indexOf(index)  第一次出现的索引位置
+			 * 
+			 * indexOf(index,number1)  第一个参数表示起始位置，
+			 * 							第二个参数表示需要匹配的元素 （===）
+			 */
+			var arr = [1,24,5,5,6,7];
+			console.log(arr.indexOf(5));//-1
+			console.log(arr.indexOf(true));//-1
+			
+			/**
+			 * lastIndexOf()  从后往前找
+			 */
+			console.log(arr.lastIndexOf(5));//3
+			
+			/**
+			 * 新加的五个迭代方法
+			 * every()  对数组的每一个元素进行一个函数运行，如果所有的都返回true ,则返回true
+			 * some()  对数组的每一个元素进行一个函数运行，如果其中一个返回true ,则返回true
+			 * filter() 对数组的每一个元素进行一个函数运行，返回过滤后的结果
+			 * forEach()对数组的循环  并执行一个函数
+			 * map() 对数组的每一个元素进行一个函数运行，返回新的结果
+			 * reduce()
+			 * reduceRight()
+			 */
+			var result_every = arr.every(function(item,index,arry){
+				return item>2;
+			});
+			console.log(result_every); //false
+			
+			var result_filter = arr.filter(function(item,index,arry){
+				return item>2;
+			});
+			console.log(result_filter); //false
+			
+			arr.forEach(function(item,index){
+				console.log(item);
+			});
+			
+			var result_map = arr.map(function(item,index){
+				return item*2;
+			});
+			console.log(result_map);
+			
+			var result_some = arr.some(function(item,index,arry){
+				return item>2;
+			});
+			console.log(result_some);//true
+			
+			
+			/**
+			 * reduce(function(prev,cur,index,array){}) 从左开始遍历
+			 * reduceRight(function(prev,cur,index,array){}) 从右开始遍历
+			 */
+			var result_reduce = arr.reduce(function(prev,cur,index,array){
+				return prev + cur;
+			});
+			console.log(result_reduce);//48
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

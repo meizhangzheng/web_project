@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>利用js对象的key不重复特性删除数组中的重复项</title>
+		<script type="text/javascript">
+			var arr = [21,5,88,2,4,5,71,6,43,54,20];
+			
+			/**
+			 * 第一步：将数组转换为对象
+			 * 第二步：再将对象还原为数组
+			 */
+			function toObj(arr){
+				var obj = {};
+				var j;
+				for(var i=0,j=arr.length;i<j;i++){
+					obj[arr[i]] = true;
+					
+					for(var key in obj) {
+					console.log("第"+i+"次的值："+key);
+				}
+				}
+				
+				return obj;
+			}
+			
+			function toArr(obj) {
+				var arr = [];
+				for(var attr in obj) {
+					if(obj.hasOwnProperty(attr)){
+						arr.push(attr);
+					}
+				}
+				return arr;
+			}
+			
+			function uniq(arr) {
+				return toArr(toObj(arr));
+			}
+			console.log(uniq(arr));  //得出的结果是自动升序排列的   （这是一个问题）
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

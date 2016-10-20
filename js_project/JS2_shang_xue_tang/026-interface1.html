@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>js定义接口第一种方式:注解描述的方式</title>
+		<script type="text/javascript">
+			/**
+			 * 定义接口的三种方式：
+			 * 一：注解描述的方式
+			 * 二：属性检测的方式
+			 * 三：鸭式辫型
+			 */
+			/**
+			 * 第一种：注解描述方式
+			 * 优点：程序员可以有一个参考
+			 * 缺点：还是属于文档的范畴，这种方式没有对接口方法的实现进行检查
+			 */
+			/**
+			 * interface Composite(){
+			 * 	function add(obj);
+			 * 	function remove(obj);
+			 * 	function update(obj);
+			 * }
+			 * 
+			 */
+			//CompositeImpl implements Composite
+			var CompositeImpl = function(){
+			}
+			CompositeImpl.prototype.remove = function(obj){
+				//do something
+			}
+			CompositeImpl.prototype.update = function(obj){
+				//do something
+			}
+			CompositeImpl.prototype.add = function(obj){
+				//do something
+			}
+			
+			var c1 = new CompositeImpl();
+			var c2 = new CompositeImpl();
+			console.log(c1.add == c2.add);
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

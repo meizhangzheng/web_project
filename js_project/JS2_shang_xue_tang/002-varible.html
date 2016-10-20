@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>全局变量和局部变量 数据类型</title>
+		<script type="text/javascript">
+			//JavaScript 是弱类型变量的脚步语言
+			var a = 10;//全局变量
+			function test() {
+				var b = 2; //局部变量
+				c = 3; //全局变量
+			}
+			//没有调用test();c  undefined
+			//alert(c);
+			
+			//Number类型  整数和小数
+			var a1 = 10;
+			var a2 = 10.1;
+			
+			//not a number
+			var a3 = NaN;
+			//正无穷
+			var a4 = 1/0; 
+			
+			
+			var a11 = 0.1;
+			var a12 = 0.2;
+			if(a11+a12 == 0.3){
+				console.log("==")
+			} else{
+				console.log("!=");
+				console.log(a11+a12);
+			}
+			
+			var a21 = parseInt("qqq");
+			console.log(a21);//NaN
+			
+			var a31 = parseInt("1123aaa");
+			console.log(a31);
+			
+			//undefined  数据类型 他的值只有一个 ；undefined 表示变量申明了，但是没有赋值
+			var a41;
+			console.log(a41); //undefined
+			
+			//null空值  类型是object 表示一个空对象的引用
+			var a51 = null;
+			console.log(a51);
+			
+			
+			//string
+			var  str1 = '111';
+			
+			//boolean
+			var flag = true;
+			
+			//引用数据类型object（对象、数组、日期等）
+			var arr = [1,2,3];
+			var dates = new Date();
+			var obj ={};
+			
+			//typeof 操作符 用来判断数据类型的
+			//number
+			var a = 10;
+			var b = 10.3;
+			var f = NaN;
+			
+			//string
+			var aa = '10';
+			var d ='abc';
+			
+			//boolean;
+			var c = true;
+			
+			//undefined
+			var h = undefined;
+			
+			//object
+			var i = null;
+			var e = new Date();
+			var j = {};
+			var g = [1,3,3];
+			
+			console.log(typeof aa)
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

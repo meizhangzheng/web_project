@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>数据自动转换</title>
+		<script type="text/javascript">
+			var a=10;
+			var b=10.0;
+			console.log(a==b);//true
+			
+			//js数据自动转换机制
+			
+			//==表示可以经过自动转换，比较的是值
+			//===表示可以经过自动转换， 先比较值，再比较数据类型
+			var c=1;
+			var d=true;
+			console.log(c==d);//true
+			console.log(c===d);//false
+			
+			
+			var e ="1";
+			var f = true;
+			console.log(e==f);//true
+			console.log(e===f);//false
+			
+			//三目运算
+			
+			
+			//关于for循环的特性
+			for(var i=0;i<10;i++){
+				console.log(i);
+			}
+			//死循环
+			for(;;){
+//				console.log("循环体");
+			}
+			
+			var i = 0;
+			while(i<5) {
+				console.log(i);
+				i++;
+			}
+			
+			for(;i<5;i++) {
+				console.log(i);
+			}
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

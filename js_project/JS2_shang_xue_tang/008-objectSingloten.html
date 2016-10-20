@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Global单体对象（不需要实例化）</title>
+		<script type="text/javascript">
+			/**
+			 * Global全局对象  全局的 终极的 兜底儿的（不存在）无形的
+			 * parseInt();
+			 * parseFloat();
+			 * eval();
+			 * encodeURI()
+			 * encodeURIComponent()
+			 * decodeURI()
+			 * decodeURIComponent()
+			 */
+			/**
+			 * 编码
+			 * encodeURI() url : // 不会进行编码
+			 * encodeURIComponent()  常用的 任何不标准的文字字符都会进行转码编码
+			 */
+			var uri = 'http:www.baidu.com cn';
+			var str1 = encodeURI(uri);
+			var str2 = encodeURIComponent(uri);
+			console.log("str1:"+str1+"，str2:"+str2);
+			
+			/**
+			 * 解码
+			 * decodeURI()
+			 * decodeURIComponent()
+			 */
+			
+			/**
+			 * eval() 无形的javascript解析器
+			 */
+			var str = 'var a=1,b=2';
+			eval(str);
+			console.log("a+b="+a+b)
+			
+			//数组字符串  直接使用eval(strArr);
+			
+			//{name:'zhang3',age:12}
+			var objStr = "{name:'zhang3',age:12}";
+			var obj = eval('('+objStr+')');
+			console.log(obj.name+obj.age);
+			
+			/**
+			 * 转码
+			 * escape()
+			 * unescape()
+			 */
+			var str = '张正梅';
+			var str1 = escape(str);
+			var str2 = unescape(str1);
+			console.log(str1 +'   '+str2);
+			
+			/**
+			 * isNaN() 是不是number类型 
+			 * 不是返回true
+			 * 在js里，只有NaN 自己不等于自己本身(== ===  都为false)
+			 */
+			var numb1 = '123';
+			console.log(isNaN(numb1))//false  是number类型
+			console.log(NaN==NaN);
+			/**
+			 * date对象
+			 */
+			var dateObj = new Date();
+			var year = dateObj.getFullYear();
+			var month = dateObj.getMonth()+1;
+			var da = dateObj.getDate();
+			var day = dateObj.getDay();
+			var second = dateObj.getSeconds();
+			var hour = dateObj.getHours();
+			var min = dateObj.getMinutes();
+			console.log(dateObj)
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

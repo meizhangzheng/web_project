@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>面向对象</title>
+		<script type="text/javascript">
+			/**
+			 * 对象
+			 */
+			var obj = new Object();
+			var obj2 = {};
+			obj.name = '张三';
+			obj.age = '20';
+			obj.sayName = function(){return '我是张三！'};
+			
+			/**
+			 * 类的概念（根据模板创建出不同的实例对象）
+			 * 第一种方式：工厂模型
+			 */
+			function createPerson(name,age,sex) {
+				var o = {};
+				o.name = name;
+				o.age = age;
+				o.sex = sex;
+				o.sayName = function(){
+					return o.name;
+				}
+				return o;
+			}
+			//调用
+			var p1 = createPerson('张三',20,'男');
+			var p2 = createPerson('李四',20,'女');
+			console.log("工厂模式："+p1.age +","+p1.sayName());
+			
+			
+			/**
+			 * 第二种方式：构造函数方式
+			 * JS规范：函数名大写，表示类  (推荐)
+			 */
+			function Person(name,age,sex) {
+				this.name = name;
+				this.age = age;
+				this.sex = sex;
+				this.sayName = function() {
+					return this.name;
+				}
+			}
+			//调用
+			var p11 = new Person('zhang3',20,'nan');
+			var p22 = new Person('lisi',20,'nv');
+			console.log("构造函数模式："+p11.name);
+			console.log("构造函数模式："+p22.sayName());
+			
+			console.log(p11==p22); //false
+			
+			
+			/**
+			 * 判断一个对象是不是另一个对象的实例
+			 * constructor
+			 * instanceof
+			 */
+			console.log (p11.constructor == Person);//true
+			console.log (p11 instanceof Person);//true  
+			console.log (p11 instanceof Object);//true
+			
+			/**
+			 * Person  调用方式  实例化对象的三种方法
+			 * 第一种：当做构造函数使用
+			 * 第二种：作为普通函数去调用 (在全局环境里定义属性并复制  直接定义在window上)
+			 * 第三种：在另外一个对象的作用域中调用
+			 */
+			/**
+			 * 第一种
+			 */
+			var p31 = new Person('hans','20','nv');
+			/**
+			 * 第二种
+			 */
+			var p32 = Person('xiao 1',2,'nv');
+			/**
+			 * 第三种
+			 */
+			var oo = {};
+			Person.call(oo,'zhangs',20,'男');
+			console.log(oo.name);
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

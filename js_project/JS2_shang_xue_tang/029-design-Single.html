@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>js 设计模式-单体（单例）模式</title>
+		<script type="text/javascript">
+			/**
+			 * js 单体模式：（singleton） 不能使用new 关键字
+			 * 1：简单单体模式：只能创建一份儿实例（很少用）
+			 * 		作用1:将全局的公共资源放在一个对象中
+			 * 		作用2:划分命名空间
+			 * 2:借用闭包创建单体
+			 * 		作用：
+			 */
+			
+			/**
+			 * 第一种单体模式（对象）：简单单体模式
+			 */
+			var Singleton = {
+				attr1:10,
+				attr2:20,
+				method1:function(){
+					console.log('method1...')
+				},
+				method2:function(){
+					console.log('method2...')
+				},
+			};
+			/**
+			 * 命名空间划分
+			 */
+			var ZZM = {};
+			ZZM.Singleton2 = {
+				attr1:10,
+				attr2:20,
+				method1:function(){
+					console.log('method1...')
+				},
+				method2:function(){
+					console.log('method2...')
+				}
+			}
+			ZZM.Singleton2.method2();
+			
+			/**
+			 * 第二种单体模式：借用闭包创建单体
+			 * 	闭包的主要目的：保护数据
+			 */
+			//块级作用域  直接执行
+			(function test(){
+				console.log('11');
+			})();
+			
+			var ZZM2 = {};//命名空间
+			ZZM2.Singleton = (function(){
+				
+				//添加自己的私有属性
+				var a1 = true;
+				var a2 = 10;
+				var f1 = function(){
+					console.log('f1..');
+				}
+				var f2 = function(){
+					console.log('f2...');
+				}
+				//把块级作用域里的执行结果赋值给我的单体对象
+				return {
+					attr1:a1,
+					attr2:a2,
+					method1:function(){
+						return f1();
+					},
+					method2:function(){
+						return f2();
+					}
+				};
+			})();
+			
+			ZZM2.Singleton.method1();
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

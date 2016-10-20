@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript">
+			/**
+			 * isPrototypeOf(new instance) 判断实例对象是不是原型对象的
+			 */
+			/**
+			 * Object.getPrototypeof();根据实例对象获得原型对象
+			 */
+			function Person(){}
+//			Person.prototype.name = 'zhangs';
+			Person.prototype.age = 20;
+			Person.prototype.sayName = function(){
+				return this.name;
+			}
+			var person = new Person();
+			console.log(Object.getPrototypeOf(person)==Person.prototype);//true
+			/**
+			 * 每次代码读取一个对象的属性时，首先会进行一次搜索，搜索实例对象里的name 的对象，看看有没有
+			 * 如果没有，再去person的实例所对应的原型对象里去搜索name 属性，如果有就返回，
+			 * 如果没有  返回undefined
+			 */
+			person.name = 'lis';
+			console.log(person.sayName());
+			
+			/**
+			 * 如果要去读原型对象的属性
+			 * 先删除实例中的对应的属性
+			 */
+			delete person.name;
+			console.log(person.sayName());//undefined
+			
+			
+			/**
+			 * 判断一个对象的属性 是属于原型属性，还是实例属性
+			 */
+			var person2 = new Person();
+			person2.name = 'zhangs';
+			console.log(person2.hasOwnProperty('name'));//false
+			
+			
+			/**
+			 * in操作符：for-in
+			 * 判断属性是否存在于实例对象 和实例对象中
+			 */
+			var p3 = new Person();
+			console.log('name' in p3);//false
+			p3.name = 'p3';
+			console.log('name' in p3);//true
+			
+			/**
+			 * 判断属性是原型对象的属性
+			 * hasOwnPrototype()  +  in
+			 */
+			
+			function isPrototypeProterty(obj,name){
+				return !obj.hasOwnProperty(name) && name in obj;
+			}
+			
+//			Person.prototype.name = 'lis';
+			var p4 = new Person();
+			console.log("name是原型的属性："+isPrototypeProterty(p4,'name'));//false
+			
+			/**
+			 * ECMA5 新特性：Object.keys(obj);
+			 * 拿到当前对象里的所有keys ,返回一个数组
+			 */
+			var attributes = Object.keys(Person.prototype);
+			console.log(attributes);
+			
+			p4.name = '111';
+			var attributes2 = Object.keys(p4);
+			console.log(attributes2);//name
+			/**
+			 * ECMA5 ：constructor属性：该属性不能被枚举
+			 * Object.getOwnPropertyNames(Person.prototype)  也包括不能枚举的属性
+			 */
+			var attributes4 = Object.getOwnPropertyNames(Person.prototype);
+			console.log(attributes4);
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

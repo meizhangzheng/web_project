@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>函数的三种定义方式</title>
+		<script type="text/javascript">
+			/**
+			 * 第一种定义方式 function语句式
+			 */
+			function test(){
+				//函数内容体
+			}
+			/**
+			 * 第二种定义方式：函数的直接量 ECMAscript推荐
+			 */
+			var fun = function(){
+				
+			}
+			
+			/**
+			 * 第三种定义方式：Function构造函数式
+			 */
+			var test3 = new Function('a','b','return a+b');
+			console.log(test3(1,2));
+			/**
+			 * 测试效率
+			 */
+			var time1 = new Date().getMilliseconds();
+			for(var i=0;i<100000;i++) {
+				var fun1 = function(){
+					;
+				}
+			}
+			var time2 = new Date().getMilliseconds();
+			console.log(time2-time1+":function");
+			var time3 = new Date().getMilliseconds();
+			for(var i=0;i<100000;i++) {
+				var fun2 = new Function();
+			}
+			var time4 = new Date().getMilliseconds();
+			console.log(time4-time3+":Function");
+			
+			/**
+			 * 解析顺序问题
+			 * function语句式函数会优先读入内存中，JavaScript解析器会优先解析
+			 * 而函数的直接量形式的函数是读到哪儿，解析到哪儿
+			 */
+			
+			test_order1();
+			function test_order1(){
+				console.log('function语句式函数，先调用在定义是可以的，因为对于function语句式函数会优先解析');
+			}
+			
+			//test_order2();//Uncaught TypeError: undefined is not a function
+			console.log(test_order2);//undefined
+			var test_order2 = function(){
+				console.log('function函数直接量的形式定义的函数，执行语句必须再定义之后');
+			}
+			console.log(test_order2);
+			test_order2();
+			
+			
+			
+			
+			/**
+			 * 函数解释顺序例子
+			 */
+			function f() {
+				console.log("function语句式：第一个");//被第四个覆盖
+			}
+			f();
+			var f = new Function('console.log("Function构造函数式：第二个")');//第二个
+			f();
+			var f = function(){
+				console.log("函数直接量形式：第三个");//第三个
+			}
+			f();
+			function f (){
+				console.log("function语句式：第四个");//第三个
+			}
+			f();
+			var f = new Function('console.log("Function构造函数式：第5个")');//第5个
+			f();
+			var f = function(){
+				console.log("函数直接量形式：第6个");//第6个
+			}
+			f();
+			
+			/**
+			 * 对上的说明：对于function语句式函数，js解析器会优先解析，解析完之后再逐步执行js 语句
+			 * 
+			 * 
+			 */
+			
+			
+			
+			/**
+			 * 函数的作用域
+			 * function语句式和function字面量式函数具有函数作用域
+			 * 而Function构造函数的方式  具有顶级作用域  相当于全局的
+			 */
+			var k = 1;
+			function test_zyy(){
+				var k = 2;
+//				function f1(){
+//					return k;
+//				}
+//				var f1 = function(){
+//					return k;
+//				}
+//				
+				var f1 = new Function('return k');//相当于在全局定义的
+				console.log(f1());
+			}
+			test_zyy();
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

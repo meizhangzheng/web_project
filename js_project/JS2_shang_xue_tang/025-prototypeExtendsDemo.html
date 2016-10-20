@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>模拟extjs的继承</title>
+		<script type="text/javascript">
+			/**
+			 * 混合模式继承：
+			 * call继承了构造函数模板
+			 * 然后用原型继承  继承了构造函数模板  和 原型对象
+			 * 缺点：其实是继承了2次父类的构造函数模板 继承了1次父类的原型对象
+			 */
+			//父类构造函数模板
+			function Person(name,age) {
+				this.name = name;
+				this.age = age;
+			}
+			//父类原型
+			Person.prototype = {
+				constructor:Person,
+				sayName:function(){
+					return this.name;
+				}
+				
+			}
+			//子类的构造函数模板
+			function Boy(name,age,sex) {
+				this.sex = sex;
+				//call  继承父类的构造函数模板  借用构造函数 只复制了父类的构造函数模板
+				Person.call(this,name,age); 
+			}
+			//原型继承： 既继承了父类的构造函数模板，又继承了父类的原型
+			Boy.prototype = new Person();
+			
+			
+			/**
+			 * 模拟extjs 的 继承
+			 */
+			//父类构造函数模板
+			function Person2(name,age) {
+				this.name = name;
+				this.age = age;
+			}
+			//父类原型
+			Person2.prototype = {
+				constructor:Person2,
+				sayName:function(){
+					return  "父类的sayName："+this.name;
+				}
+				
+			}
+			//子类的构造函数模板
+			function Boy2(name,age,sex) {
+				this.sex = sex;
+				//call  继承父类的构造函数模板  借用构造函数 只复制了父类的构造函数模板
+//				Person2.call(this,name,age); 
+				Boy2.superClass.constructor.call(this,name,age);
+			}
+			extend(Boy2,Person2);
+			Boy2.prototype.sayName = function(){
+				return "子类的sayName："+this.name;
+			}
+			
+			function extend(sub,sup) {
+				//利用一个空函数屏蔽父类的构造函数模板
+				var F = new Function();
+				F.prototype = sup.prototype;
+				sub.prototype = new F();
+				//还原子类的构造器
+				sub.prototype.constructor = sub;
+				//保存父类的原型对象， 1 方便解耦  2 方便获得父类的原型对象
+				sub.superClass = sup.prototype;//自定义子类的静态属性 接收父类的原型对象
+				//判断父类的构造器  
+				if(sup.prototype.constructor === Object.prototype.constructor){
+					sup.prototype.constructor = sup;//手动还原父类的构造器
+				}
+			}
+			
+			var b = new Boy2('第二种方法',20,'男');
+			console.log(b.sayName() +"," +b.constructor+","+Boy2.superClass.constructor);
+			console.log("调用父类的sayName:"+Boy2.superClass.sayName.call(b));
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

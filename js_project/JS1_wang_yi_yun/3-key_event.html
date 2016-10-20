@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>键盘事件</title>
+	<script>
+		/**
+		 * @param  {[type]}
+		 * @return {[type]}
+		 * 注意：onkeypress只能获取数字和字母键
+		 * 		onkeydown 能获取所有的键
+		 */
+		function show(event){
+			var e = event || window.event || arguments.callee.caller.arguments[0];//兼容火狐
+  			var code = e.which || event.keyCode;  //兼容火狐
+  			var eventObj = event.srcElement || event.target;
+
+
+			var ev = window.event || event;
+			console.log(ev.keyCode);
+			if(ev.keyCode=="27")
+				window.close();
+		}
+	
+	</script>	
+</head>
+<body onkeypress="show(event)">
+	<input type="text" onkeyup="if(this.value!=this.value.toUpperCase()) this.value=this.value.toUpperCase()">
+	
+</body>	
+</html>

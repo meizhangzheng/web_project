@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>垃圾回收</title>
+		<script type="text/javascript">
+			/**
+			 * 垃圾收集
+			 * 方法1：标记方法
+			 * 方法2： 引用计数法
+			 */
+			function test() {
+				var a = 0;
+				var b = 10;
+			}
+			test();//调用时  a,b标记为被使用  执行完毕后，a,b被标记为没有使用
+			
+			/**
+			 * 块级作用域
+			 * 高级语言（java c）等  for  if中有块级作用域的概念
+			 * js是没有块级作用域的概念的
+			 * js 中只有当函数执行完毕之后，再来通过垃圾自动回收进行处理
+			 * js  中()表示立即执行
+			 */
+			function  test1(){
+				for(var i=0;i<=5;i++){
+					console.log(i);
+				}
+				console.log(i);//6
+			}
+			test1();
+			
+			/**
+			 * 模拟块级作用域
+			 */
+			function  test1(){
+				(function(){
+					for(var i=0;i<=5;i++){
+					console.log(i);
+				}
+				})();
+				
+//				console.log(i);//i is not defined
+			}
+			
+			/**
+			 * 单独提出一块作用域  用() 将一个匿名函数包起来，然后再加一个() 立即执行
+			 */
+			(function(){
+				console.log('我立即执行了')
+			})();
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
