@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>window对象的常见对象、属性、方法</title>
+</head>
+<body>
+	<script type="text/javascript">
+		/**
+		 * location对象
+		 * 1、window.navagte("url")
+		 * 2、window.location.href = "url"  (IE FF 兼容性问题)
+		 * 3、location = "url"  (没有兼容性问题)
+		 * 4、location.replace('url')  没有历史访问记录  将当前的文档替换
+		 * 5、location.reload(true);
+		 */
+	</script>
+
+	<script type="text/javascript">
+		/**
+		 * history对象
+		 * 1、history.back();返回到上一步
+		 * 2、history.go(-2);返回上二步
+		 */
+	</script>
+	<a href="javascript:history.back();" title="">返回上一步</a>
+	<a href="javascript:history.go(-1);" title="">返回上一步</a>
+	<a href="javascript:history.go(-2);" title="">返回上二步</a>
+
+
+	<script type="text/javascript">
+		/**
+		 * screen对象
+		 * screen.heigt 屏幕实际高度
+		 * screen.availHeight 屏幕可用高度
+		 */
+		console.log(screen.availHeight);
+	</script>
+
+	<script type="text/javascript">
+		/**
+		 * 剪切板
+		 * IE可用 谷歌不行
+		 * window.clipboardData.setData('text',text) 复制
+		 * window.clipboardData.getData('text') 显示
+		 * window.clipboardData.clearData('text') 清空
+		 */
+		function copyF (){
+			var text = "1222222222222222"
+			window.clipboardData.setData('text',text);
+		}
+	</script>
+	<button onclick="copyF();">复制</button>   
+	<button onclick="alert(window.clipboardData.getData('text'));">显示</button>   
+	<button onclick="window.clipboardData.clearData('text');">清空</button>   
+
+
+	<script type="text/javascript">
+		/**
+		 * js 位置属性 来源：http://www.2cto.com/kf/201501/373653.html
+		 * 1、clientWidth和clientHeight：元素的可视部分宽度和高度  即padding+content，如果没有滚动条
+		 * 			即为元素设定的高度和宽度，如果出现滚动条，滚动条会遮盖元素的宽高，那么该属性就是
+		 * 			其本来宽高减去滚动条的宽高
+		 * 2、offsetWidth和offsetHeight：指的是元素的border+padding+content的宽度和高度，该属性和其
+		 * 			内部的内容是否超出元素大小无关，只和本来设定的border以及width和height有关
+		 * 3、clientTop和clientLeft ：用来读取元素的border的宽度和高度的。
+		 *
+		 * 4、offsetLeft和offsetTop：
+		 */
+	</script>
+</body>
+</html>
