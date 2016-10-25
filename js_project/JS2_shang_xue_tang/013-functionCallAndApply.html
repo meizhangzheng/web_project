@@ -6,8 +6,8 @@
 		<script type="text/javascript">
 			/**
 			 * call  apply 简单的用法：绑定一些函数  用于传递参数  调用
-			 * call(this,arg1,arg2,...)
-			 * apply(this,[arg1,arg2,...])
+			 * fn.call(this,arg1,arg2,...)  如果没有提供 thisObj 参数，那么 Global 对象被用作 thisObj
+			 * fn.apply(this,[arg1,arg2,...])
 			 */
 			function sum(numb1,numb2){
 				return numb1+numb2;

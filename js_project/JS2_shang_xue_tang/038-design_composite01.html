@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>设计模式-组合模式</title>
+	<script type="text/javascript">
+		/**
+		 * 组合模式  模拟公司组织树结构
+		 */
+		
+		var Org = function(name){
+			this.name = name;
+			this.depts = [];
+		};
+		Org.prototype = {
+			constructor : Org,
+			addDepts : function(dept){
+				this.depts.push(dept);
+				return this; //链式调用
+			},
+			getDepts : function(){
+				return this.depts;
+			}
+		}
+
+
+		var Dept = function(name){
+			this.name = name;
+			this.persons = [];
+		};
+		Dept.prototype = {
+			constructor : Dept,
+			addPersons : function(person){
+				this.persons.push(person);
+				return this; //链式调用
+			},
+			getPersons : function(){
+				return this.persons;
+			}
+		}
+
+		var Person = function(name){
+			this.name = name;
+		};
+
+		Person.prototype = {
+			constructor : Person,
+			hardWorking : function(){
+				console.log(this.name+' hardworking...');
+			},
+			sleeping : function(){
+				console.log(this.name+' sleeping...');
+			}
+		}
+
+		var p1 = new Person('zhangsan1');
+		var p2 = new Person('zhangsan2');
+		var p3 = new Person('zhangsan3');
+		var p4 = new Person('zhangsan4');
+		var p5 = new Person('zhangsan5');
+		var p6 = new Person('zhangsan6');
+
+		var dept1 = new Dept('研发部');
+		dept1.addPersons(p1).addPersons(p2).addPersons(p3);
+
+		var dept2 = new Dept('销售部');
+		dept2.addPersons(p4).addPersons(p5).addPersons(p6);
+
+		var org = new Org('没长正商业公司');
+		org.addDepts(dept1).addDepts(dept2);
+
+
+		//让zhangsan1 去工作  但是让整个部门工作太麻烦
+		for(var i=0,depts=org.getDepts();i<depts.length;i++) {
+			for(var j=0,persons=depts[i].getPersons();j<persons.length;j++){
+				if(persons[j].name === 'zhangsan1'){
+					persons[j].hardWorking();
+				}
+			}
+		}
+		/**
+		 * 利用组合模式实现同一批操作
+		 */
+		
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

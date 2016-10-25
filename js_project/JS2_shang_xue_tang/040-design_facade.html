@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>设计模式-门面模式</title>
+	<script type="text/javascript" charset="utf-8" src="../common/commonUtil.js"></script>
+	<script type="text/javascript">
+		/**
+		 * 门面模式 简化API接口 最经典的就是对事件的封装
+		 */
+		function a(x){
+			//do something
+		}
+
+		function b(x) {
+			//do something
+		}
+
+		function ab(x,y){
+			a(x);
+			b(y);
+		}
+
+
+		/**
+		 * 简单的门面模式：给多个元素设置同样的样式
+		 */
+		function setStyle(elementsId,prop,val){
+			for(var i=0,idsLen=elementsId.length;i<idsLen;i++){
+				document.getElementById(elementsId[i]).style[prop] = val;
+			}
+		}
+
+		/**
+		 * 门面模式  设置css 
+		 */
+		function setCss(elementsId,options) {
+			for(var key in options){
+				setStyle(elementsId,key,options[key]);
+			}
+		}
+		window.onload = function(){
+			// setStyle(['div1','div2','div3'],'color','blue');
+			setCss(['div1','div2','div3'],
+					{
+						color:'blue',
+						backgroundColor:'#010101'
+					});
+		}
+
+	</script>
+</head>
+<body>
+	<div id="div1">div1</div>
+	<div id="div2">div2</div>
+	<div id="div3">div3</div>
+</body>
+</html>

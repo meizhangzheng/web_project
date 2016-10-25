@@ -32,6 +32,7 @@
 			
 			/**
 			 * eval() 无形的javascript解析器
+			 * 加上圆括号的目的是迫使eval函数在处理JavaScript代码的时候强制将括号内的表达式（expression）转化为对象，而不是作为语句（statement）来执行
 			 */
 			var str = 'var a=1,b=2';
 			eval(str);

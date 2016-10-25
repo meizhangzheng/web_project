@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>模拟JQuery的函数链式编程</title>
+	<script type="text/javascript">
+		/**
+		 * 块级作用域
+		 * 1、程序启动时，程序自动执行
+		 * 2、内部的变量 外部无法访问（除了没有加var修饰的变量）
+		 */
+		(function(window,undefined){
+			/**
+			 * $  常用的对象 返回给外界
+			 * 		一般使用'_'作为私有的变量（规范）
+			 */
+			function _$(arguments){
+				//实现代码
+			}
+			
+			window.$ = _$; //window上注册一个全局变量
+
+			//准备方法
+			_$.onReady = function(fn){
+				//1、实例化出来_$对象 真正注册到window上
+				window.$ = function(){
+					return new _$(arguments);
+				}
+				//2.执行传入的代码
+				fn();
+				//3、实现链式编程
+				
+			}
+
+		})(window);//程序的入口  window传入到作用域中
+
+		$(function(){
+
+		});
+		$.onReady(function(){
+			console.log('模拟JQuery的函数链式编程');
+		});
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>设计模式-工厂模式</title>
+	<script type="text/javascript" charset='utf-8' src="../common/commonUtil.js"></script>
+	<script type="text/javascript" charset='utf-8'>
+		function CarShop(){}
+		CarShop.prototype = {
+			constructor:CarShop,
+			sellCar:function(type){
+				return CarFactory.createCar(type);
+			}
+		}
+		//生产车的工厂
+		//单体模式
+		var CarFactory = {
+			createCar:function(type){
+				var car;
+				switch(type){
+					case 'Benz':car = new Benz();break;
+					case 'Bmw':car = new Bmw();break;
+					case 'Audi':car = new Audi();break;
+					default :'no car !!';
+				}
+				MZZ.Interface.ensureImplements(car,CarInterface);
+				return car;
+			}
+		}
+		//鸭式辫型  接口
+		var CarInterface = new MZZ.Interface('CarInterface',['start','run']);
+		
+		//父类实现继承 superClass
+		function BaseCar(){}
+		BaseCar.prototype = {
+			constructor:BaseCar,
+			start : function(){
+				console.log(this.constructor.name+' start');
+			},
+			run : function(){
+				console.log(this.constructor.name+' run');
+			}
+		}
+		/**
+		 * 子类必须先继承 再扩展子类的prototype的
+		 */
+		function Benz(){}
+		MZZ.extend(Benz,BaseCar);
+		Benz.prototype.driveBenz = function(){
+			console.log('Benz drive');
+		}
+
+		function Bmw(){}
+		MZZ.extend(Bmw,BaseCar);
+
+		function Audi(){}
+		MZZ.extend(Audi,BaseCar);
+
+		var shop = new CarShop();
+		var car = shop.sellCar('Benz');
+		car.run();
+
+		var car2 = shop.sellCar('Bmw');
+		car2.start();
+
+
+		console.log(Benz.name);
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

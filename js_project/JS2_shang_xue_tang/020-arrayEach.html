@@ -7,10 +7,10 @@
 			/**
 			 * forEach()方法循环遍历数组的每一项，（只适合遍历一维数组）
 			 */
-			var arr = [1,2,4,[1,2,[1,23,4]]];
-			arr.forEach(function(item,index) {
-				console.log(item);
-			});
+			// var arr = [1,2,4,[1,2,[1,23,4]]];
+			// arr.forEach(function(item,index) {
+			// 	console.log(item);
+			// });
 			
 			/**
 			 * 模拟each方法
@@ -38,6 +38,10 @@
 				}
 				return this;
 			}
+
+			arr2.each(function(item){
+				console.log('遍历二维数组：'+item);
+			})
 			
 			function  test(name){
 				console.log("测试call方法:"+name);

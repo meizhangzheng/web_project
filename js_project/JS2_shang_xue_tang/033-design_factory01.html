@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>设计模式-工厂模式</title>
+	<script type="text/javascript" src="../common/commonUtil.js" charset='utf-8'></script>
+	<script type="text/javascript">
+		//搭建一个工厂的环境
+		function CarShop(){}
+		CarShop.prototype = {
+			constructor:CarShop,
+			sellCar:function(type){
+				var car;
+				switch(type){
+					case 'Benz': car = new Benz();break;
+					case 'Bmw': car = new Bmw();break;
+					case 'Audi': car = new Audi();break;
+					default:'no car ！！'
+				}
+				MZZ.Interface.ensureImplements(car,CarInterface);
+				return car;
+			}
+		}
+
+		var CarInterface = new MZZ.Interface('CarInterface',['start','run']);
+		//class  benz bmw audi
+		function Benz(){}
+		Benz.prototype.start = function(){console.log('Benz start..');}
+		Benz.prototype.run = function(){console.log('Benz run..');}
+
+		function Bmw(){}
+		Bmw.prototype.start = function(){console.log('Bmw start..');}
+		Bmw.prototype.run = function(){console.log('Bmw run..');}
+
+		function Audi(){}
+		Audi.prototype.start = function(){console.log('Audi start..');}
+		Audi.prototype.run = function(){console.log('Audi run..');}
+
+		var shop = new CarShop();
+		var car = shop.sellCar('Bmw');
+		car.start();
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

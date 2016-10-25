@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>设计模式-桥接模式  事件监听回调实例</title>
+	<script type="text/javascript" charset="utf-8" src="../common/jquery.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../common/commonUtil.js"></script>
+	<script type="text/javascript">
+		/**
+		 * 桥接模式：
+		 * 作用：把抽象和显示分离开来，使他们可以独立开发
+		 * 应用场景：事件监听，回调机制
+		 */
+		/**
+		 * 事件监听 传统模式
+		 */
+		$(function(){
+			/**
+			 * 前台业务逻辑
+			 * @type {[type]}
+			 */
+			var $inp = $('#inp');
+			//用事件注册方式 给元素添加点击事件
+			MZZ.EventUtil.addHandler($inp.get(0),'click',sendReq);
+			//后台业务逻辑
+			function sendReq(){
+				console.log('发送数据到后台：'+this.value);
+
+			}
+		});
+
+		/**
+		 * 利用桥模式 分开前台和后台业务逻辑单元  前后台解耦
+		 */
+		$(function(){
+			/**
+			 * 前台业务逻辑
+			 * @type {[type]}
+			 */
+			var $inp = $('#inp');
+			//用事件注册方式 给元素添加点击事件
+			MZZ.EventUtil.addHandler($inp.get(0),'click',bridgeHandler);
+
+			/**
+			 * 利用桥接模式分开
+			 */
+			function bridgeHandler(){
+				sendReq2(this.value);
+			}
+
+
+			//后台业务逻辑
+			function sendReq2(msg){
+				console.log('发送数据到后台：'+msg);
+
+			}
+
+			//就可以单独测试后台业务逻辑了
+			sendReq2('直接测试后台业务逻辑');
+		});
+		
+	</script>
+</head>
+<body>
+	<input type="button" id="inp" value="事件监听 回调机制">
+</body>
+</html>

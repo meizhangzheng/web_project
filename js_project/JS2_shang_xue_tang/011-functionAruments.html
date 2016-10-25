@@ -41,6 +41,43 @@
 			}
 			test();//NaN
 		</script>
+
+
+
+
+		<script type="text/javascript">
+			function test(arguments){
+				console.log(this);
+				console.log(arguments);
+			}
+			var f1 = test;
+			f1 = function(){
+				return new test(arguments);
+			}
+			f1('1','2'); //arguments
+
+			function test11(){
+				console.log(this);
+				console.log(arguments);
+			}
+			var f1 = test11;
+			f1 = function(){
+				return new test11(arguments);
+			}
+			f1('1','2'); //此时的arguments接收到的是[Arguments[1,2]]  特别注意
+
+			function test2(arguments){
+				console.log(this);
+				console.log(arguments);  
+			}
+			test2('1','2'); //只能接收一个参数
+
+			function test3(){
+				console.log(this);
+				console.log(arguments);  
+			}
+			test3('1','2'); //arguments 可以接收两个参数
+		</script>
 	</head>
 	<body>
 	</body>

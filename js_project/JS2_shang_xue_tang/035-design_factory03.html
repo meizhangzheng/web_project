@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>设计模式-复杂工厂模式</title>
+	<script type="text/javascript" charset='utf-8' src="../common/commonUtil.js"></script>
+	<script type="text/javascript" charset='utf-8'>
+		/**
+		 * super shop
+		 * this CarShop is a abstratct 抽象类
+		 */
+		function CarShop(){}
+		CarShop.prototype = {
+			constructor:CarShop,
+			sellCar:function(type){
+
+				return this.abstractSellCar();
+			},
+			abstractSellCar:function(){
+				throw new Error('this is a abstratct function!');
+			}
+
+
+		}
+
+		//Benz 4s店
+		function BenzShop() {}
+		MZZ.extend(BenzShop,CarShop);
+		BenzShop.prototype = {
+			constructor:BenzShop,
+			sellCar:function(type){
+				var car;
+				var types = ['Benz'];
+				for(var t in types) {
+					if(types[t] === type) {
+						car = CarFactory.createCar(type);
+					}
+				}
+				if(!car){
+					throw new Error('not types for your car!')
+				}
+				return car;
+			}
+		}
+		//宝马店
+		
+		
+		/**
+		 * 生产车的工厂 工厂模式 
+		 * 单体模式
+		 * 动态工厂  eval实现
+		 */
+		var CarFactory = {
+			createCar:function(type){
+				var car = eval('new '+type+'()');
+				MZZ.Interface.ensureImplements(car,CarInterface);
+				return car;
+			}
+		}
+		//鸭式辫型  接口
+		var CarInterface = new MZZ.Interface('CarInterface',['start','run']);
+		
+		//父类实现继承 superClass
+		function BaseCar(){}
+		BaseCar.prototype = {
+			constructor:BaseCar,
+			start : function(){
+				console.log(this.constructor.name+' start');
+			},
+			run : function(){
+				console.log(this.constructor.name+' run');
+			}
+		}
+		/**
+		 * 子类必须先继承 再扩展子类的prototype的
+		 */
+		function Benz(){}
+		MZZ.extend(Benz,BaseCar);
+		Benz.prototype.driveBenz = function(){
+			console.log('Benz drive');
+		}
+
+		function Bmw(){}
+		MZZ.extend(Bmw,BaseCar);
+
+		function Audi(){}
+		MZZ.extend(Audi,BaseCar);
+
+		var shop = new BenzShop();
+		var car = shop.sellCar('Benz');
+		car.run();
+
+		var car2 = shop.sellCar('Bmw');
+		car2.start();
+
+
+		console.log(Benz.name);
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

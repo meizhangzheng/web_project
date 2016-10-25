@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>函数的链式调用</title>
+	<script type="text/javascript">
+		/**
+		 * 简单的链式调用 return this;
+		 */
+		function Dog(){
+			this.run = function(){
+				console.log('dog is run...');
+				return this;
+			}
+			this.eat = function(){
+				console.log('dog is eat...');
+				return this;
+			}
+			this.sleep = function(){
+				console.log('dog is sleep...');
+				return this;
+			}
+		}
+		var dog1 = new Dog();
+		dog1.run().eat().sleep();
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
