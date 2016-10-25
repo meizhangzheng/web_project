@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>设计模式-桥接模式 特权函数和用桥把多个单元组合在一起</title>
+	<script type="text/javascript">
+		/**
+		 * 桥接模式：特权函数
+		 */
+		var PublicClass = function(){
+			//private variable
+			var name = 'zhangsan';
+			//getter  	访问私有变量  特权函数
+			this.getName = function(){
+				return name;
+			}
+
+		}
+
+		var p1 = new PublicClass();
+		console.log(p1.getName());
+
+
+		/**
+		 * 
+		 */
+		var PublicClass2 = function(){
+			//private variable
+			var privateMethod = function(){
+				console.log('method....')
+			}
+
+			//通过这个特权函数去访问这个私有的独立单元
+			this.bridgeMethod = function(){
+				privateMethod();
+			}
+
+		}
+
+		var p2 = new PublicClass2();
+		p2.bridgeMethod();
+
+
+		/**
+		 * 桥模式三：利用桥模式将多个单元组合在一起，而每个单元也可以独立运行
+		 */
+		function Class1(a,b,c) {
+			this.a = a;
+			this.b = b;
+			this.c = c;
+		}
+
+		function Class2(d,e) {
+			this.d = d;
+			this.e = e;
+		}
+
+		function brigeClass(a,b,c,d,e) {
+			this.class1 = new Class1(a,b,c);
+			this.class2 = new Class2(d,e);
+		}
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
